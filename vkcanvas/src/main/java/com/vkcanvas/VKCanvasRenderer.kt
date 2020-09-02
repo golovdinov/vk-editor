@@ -11,6 +11,7 @@ import com.vkcanvas.entity.VKCanvasBitmapObject
 import com.vkcanvas.entity.VKCanvasObject
 import com.vkcanvas.entity.VKCanvasTextObject
 import com.vkcanvas.util.dpToPx
+import com.vkcanvas.util.scaleFit
 
 open class VKCanvasRenderer(val context: Context) {
 

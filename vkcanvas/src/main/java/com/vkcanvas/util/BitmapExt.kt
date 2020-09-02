@@ -1,6 +1,7 @@
-package com.vkeditor.utils
+package com.vkcanvas.util
 
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.util.Size
 
 fun Bitmap.scaleFit(size: Size): Bitmap {
@@ -16,12 +17,23 @@ fun Bitmap.scaleFit(size: Size): Bitmap {
         scaledWidth = (size.width * (this.width.toFloat() / this.height.toFloat())).toInt()
     }
 
-    return Bitmap.createScaledBitmap(
+    val sourceBitmap = Bitmap.createScaledBitmap(
         this,
         scaledWidth,
         scaledHeight,
         true
     )
+
+    val resultBitmap = Bitmap.createBitmap(size.width, size.height, Bitmap.Config.ARGB_8888)
+
+    val canvas = Canvas(resultBitmap)
+
+    val x = (size.width.toFloat() - scaledWidth.toFloat()) / 2
+    val y = (size.height.toFloat() - scaledHeight.toFloat()) / 2
+
+    canvas.drawBitmap(sourceBitmap, x, y, null)
+
+    return resultBitmap
 }
 
 fun Bitmap.scaleCenterCrop(size: Size): Bitmap {

@@ -325,13 +325,13 @@ class VKCanvasView: RelativeLayout, VKCanvasAdapter.DataObserver {
 
         val lp = transaction.view.layoutParams as RelativeLayout.LayoutParams
 
-        // Drag
-        lp.leftMargin += dx.toInt()
-        lp.topMargin += dy.toInt()
-
         // Scale
         lp.width += dDistance.toInt()
         lp.height += dDistance.toInt()
+
+        // Drag
+        lp.leftMargin += dx.toInt() - (dDistance/2).toInt()
+        lp.topMargin += dy.toInt() - (dDistance/2).toInt()
 
         lp.width = min(width*2, lp.width)
         lp.height = min(height*2, lp.height)

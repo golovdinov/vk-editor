@@ -3,10 +3,8 @@ package com.vkeditor.model
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.util.Size
-import com.nostra13.universalimageloader.core.DisplayImageOptions
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.assist.ImageSize
-import com.vkcanvas.VKCanvasRenderer
 import com.vkcanvas.entity.TextStyle
 import com.vkcanvas.entity.TransformState
 import com.vkcanvas.entity.VKCanvasObject
@@ -16,8 +14,8 @@ import com.vkeditor.entity.Background
 import com.vkeditor.entity.Sticker
 import com.vkeditor.entity.BackgroundObject
 import com.vkeditor.entity.StickerObject
-import com.vkeditor.utils.scaleCenterCrop
-import com.vkeditor.utils.scaleFit
+import com.vkcanvas.util.scaleCenterCrop
+import com.vkcanvas.util.scaleFit
 
 class CanvasModel(
     var canvasSize: Size,
@@ -83,7 +81,8 @@ class CanvasModel(
     fun addSticker(sticker: Sticker) {
         val size = Size(320, 320)
         val imageSize = ImageSize(320, 320)
-        val bitmap = ImageLoader.getInstance().loadImageSync(sticker.uri, imageSize)
+        var bitmap = ImageLoader.getInstance().loadImageSync(sticker.uri, imageSize)
+        bitmap = bitmap.scaleFit(size)
         val state = TransformState(Point(100, 100), size, 0F)
         val stickerObject = StickerObject(
             System.currentTimeMillis().toString(),
@@ -102,7 +101,7 @@ class CanvasModel(
         var newBitmap = oldBitmap
 
         if (stickerObject.state.size != newState.size) {
-            val imageSize = ImageSize(320, 320)
+            val imageSize = ImageSize(newState.size.width, newState.size.height)
             newBitmap = ImageLoader.getInstance().loadImageSync(sticker.uri, imageSize)
             newBitmap = newBitmap.scaleFit(newState.size)
         }

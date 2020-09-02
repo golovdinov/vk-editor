@@ -7,12 +7,11 @@ import android.os.Environment
 import android.util.Size
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
 import com.vkeditor.entity.Background
 import com.vkeditor.utils.Event
 import com.vkeditor.utils.getBitmapByUri
 import com.vkeditor.utils.saveBitmapToStream
-import com.vkeditor.utils.scaleCenterCrop
+import com.vkcanvas.util.scaleCenterCrop
 import java.io.File
 import java.io.FileOutputStream
 
