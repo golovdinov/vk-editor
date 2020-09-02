@@ -1,0 +1,3 @@
+include ':vkcanvas'
+include ':app'
+rootProject.name = "VK Editor"

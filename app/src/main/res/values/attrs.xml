@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Theme.App">
+        <attr name="toolbarTitleTextAppearance" format="reference"/>
+        <attr name="dialogTitleTextAppearance" format="reference"/>
+        <attr name="defaultBackgroundColor" format="reference"/>
+        <attr name="dividerColor" format="reference"/>
+        <attr name="topToolbarHeight" format="dimension"/>
+        <attr name="bottomToolbarHeight" format="dimension"/>
+    </declare-styleable>
+</resources>

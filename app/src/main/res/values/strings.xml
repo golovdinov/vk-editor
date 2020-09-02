@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">VK Editor</string>
+    <string name="btn_save">Сохранить</string>
+    <string name="title_new">Новая запись</string>
+    <string name="error_save_image_permission">Чтобы сохранять изображения, разрешите приложению доступ к файловой системе в настройках</string>
+    <string name="error_load_image_permission">Чтобы загрузить собственный фон, разрешите приложению доступ к файловой системе в настройках</string>
+    <string name="title_stickers">Стикеры</string>
+    <string name="text_placeholder">Что у вас нового?</string>
+    <string name="toast_saved">Изображение сохранено</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="56dp"
+    android:layout_height="56dp">
+    <ImageView
+        android:id="@+id/ivTrash"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_fab_trash"
+        android:background="@drawable/bg_trash_with_shadow"
+        android:scaleType="center"/>
+    <ImageView
+        android:id="@+id/ivTrashActivated"
+        android:visibility="invisible"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/ic_fab_trash_released"
+        android:background="@drawable/bg_trash_with_shadow"
+        android:scaleType="center"/>
+</RelativeLayout>

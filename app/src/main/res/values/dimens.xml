@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_m">16dp</dimen>
+
+    <dimen name="text_size_m">16sp</dimen>
+
+    <dimen name="button_min_width">32dp</dimen>
+    <dimen name="button_min_height">32dp</dimen>
+    <dimen name="button_text_size">13sp</dimen>
+    <dimen name="button_padding_top">5dp</dimen>
+    <dimen name="button_padding_bottom">4dp</dimen>
+    <dimen name="button_padding_left">@dimen/padding_m</dimen>
+    <dimen name="button_padding_right">@dimen/padding_m</dimen>
+    <dimen name="button_corner_radius">4dp</dimen>
+
+    <integer name="short_animation_duration">60</integer>
+</resources>

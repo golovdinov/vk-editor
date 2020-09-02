@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="white">#fff</color>
+    <color name="firm_blue">#528BCC</color>
+
+    <color name="text_black">#2C2D2E</color>
+    <color name="text_blue">#093C6F</color>
+
+    <color name="divider_gray">#1E000000</color>
+
+    <color name="button_transparent_ripple">#25528BCC</color>
+
+    <color name="button_blue_bg">@color/firm_blue</color>
+    <color name="button_blue_bg_disabled">#7E528BCC</color>
+    <color name="button_blue_ripple">#72A9E8</color>
+    <color name="button_blue_text">@color/white</color>
+</resources>
