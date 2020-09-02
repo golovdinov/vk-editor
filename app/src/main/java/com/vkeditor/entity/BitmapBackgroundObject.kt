@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import com.vkcanvas.entity.TransformState
 import com.vkcanvas.entity.VKCanvasBitmapObject
 
-class BackgroundObject(
+class BitmapBackgroundObject(
     id: String,
     bitmap: Bitmap,
     state: TransformState,

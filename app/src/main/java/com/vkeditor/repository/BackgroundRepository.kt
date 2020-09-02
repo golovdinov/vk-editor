@@ -1,8 +1,12 @@
 package com.vkeditor.repository
 
 import android.content.Context
+import android.graphics.Color
 import androidx.lifecycle.liveData
 import com.vkeditor.entity.Background
+import com.vkeditor.entity.BitmapBackground
+import com.vkeditor.entity.ColorBackground
+import com.vkeditor.entity.GradientBackground
 
 class BackgroundRepository(private val context: Context) {
 
@@ -10,56 +14,58 @@ class BackgroundRepository(private val context: Context) {
         val list = mutableListOf<Background>()
 
         list.add(
-            Background(
+            ColorBackground(
                 Background.ID_WHITE,
-                "assets://backgrounds/white.png",
-                "assets://backgrounds/gray.png"
+                Color.WHITE,
+                Color.argb(255,235,235,235)
             )
         )
         list.add(
-            Background(
+            GradientBackground(
                 Background.ID_GRADIENT_BLUE,
-                "assets://backgrounds/gradient_1.png",
-                "assets://backgrounds/gradient_1_preview.png"
+                Color.argb(255,48,242,210),
+                Color.argb(255,46,122,230)
             )
         )
         list.add(
-            Background(
+            GradientBackground(
                 Background.ID_GRADIENT_GREEN,
-                "assets://backgrounds/gradient_2.png",
-                "assets://backgrounds/gradient_2_preview.png"
+                Color.argb(255,203,230,69),
+                Color.argb(255,71,179,71)
             )
         )
         list.add(
-            Background(
+            GradientBackground(
                 Background.ID_GRADIENT_ORANGE,
-                "assets://backgrounds/gradient_3.png",
-                "assets://backgrounds/gradient_3_preview.png"
+                Color.argb(255,255,204,51),
+                Color.argb(255,255,119,51)
             )
         )
         list.add(
-            Background(
+            GradientBackground(
                 Background.ID_GRADIENT_RED,
-                "assets://backgrounds/gradient_4.png",
-                "assets://backgrounds/gradient_4_preview.png"
+                Color.argb(255,255,51,85),
+                Color.argb(255,153,15,107)
             )
         )
         list.add(
-            Background(
+            GradientBackground(
                 Background.ID_GRADIENT_VIOLET,
-                "assets://backgrounds/gradient_5.png",
-                "assets://backgrounds/gradient_5_preview.png"
+                Color.argb(255,248,166,255),
+                Color.argb(255,108,108,217)
             )
         )
 
-        list.add(Background(
-            Background.ID_BEACH,
-            "assets://backgrounds/beach.png",
-            "assets://backgrounds/beach_preview.png"
-        ))
+        list.add(
+            BitmapBackground(
+                Background.ID_BEACH,
+                "assets://backgrounds/beach.png",
+                "assets://backgrounds/beach_preview.png"
+            )
+        )
 
         list.add(
-            Background(
+            BitmapBackground(
                 Background.ID_STARS_SKY,
                 "assets://backgrounds/stars.png",
                 "assets://backgrounds/stars_preview.png"

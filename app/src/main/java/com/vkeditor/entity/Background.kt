@@ -1,10 +1,13 @@
 package com.vkeditor.entity
 
-data class Background(
+abstract class Background(
     val id: String,
-    val uri: String,
-    val uriPreview: String
+    val type: Type
 ) {
+
+    enum class Type {
+        Color, Gradient, Bitmap
+    }
 
     companion object {
         const val ID_WHITE = "white"

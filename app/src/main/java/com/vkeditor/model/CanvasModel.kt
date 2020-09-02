@@ -10,19 +10,16 @@ import com.vkcanvas.entity.TransformState
 import com.vkcanvas.entity.VKCanvasObject
 import com.vkcanvas.entity.VKCanvasTextObject
 import com.vkeditor.App
-import com.vkeditor.entity.Background
-import com.vkeditor.entity.Sticker
-import com.vkeditor.entity.BackgroundObject
-import com.vkeditor.entity.StickerObject
 import com.vkcanvas.util.scaleCenterCrop
 import com.vkcanvas.util.scaleFit
+import com.vkeditor.entity.*
 
 class CanvasModel(
     var canvasSize: Size,
     private val textPlaceHolder: String
 ) {
 
-    var backgroundObject: BackgroundObject? = null
+    var backgroundObject: VKCanvasObject? = null
         private set
 
     private val _stickerObjects: MutableList<StickerObject> = mutableListOf()
@@ -61,21 +58,38 @@ class CanvasModel(
         private set
 
     fun setBackground(background: Background) {
-        val imageSize = ImageSize(canvasSize.width, canvasSize.height)
+        val state = TransformState(Point(0, 0), canvasSize, 0F)
 
-        var bitmap = ImageLoader.getInstance().loadImageSync(background.uri, imageSize)
+        when (background.type) {
+            Background.Type.Color -> {
+                backgroundObject = ColorBackgroundObject(
+                    "background", // пока может быть только один фон
+                    (background as ColorBackground).color,
+                    (background as ColorBackground).colorPreview
+                )
+            }
+            Background.Type.Gradient -> {
+                backgroundObject = GradientBackgroundObject(
+                    "background",
+                    state,
+                    (background as GradientBackground).colorStart,
+                    (background as GradientBackground).colorEnd
+                )
+            }
+            Background.Type.Bitmap -> {
+                val imageSize = ImageSize(canvasSize.width, canvasSize.height)
+                val uri = (background as BitmapBackground).uri
+                var bitmap = ImageLoader.getInstance().loadImageSync(uri, imageSize)
+                bitmap = bitmap.scaleCenterCrop(canvasSize)
 
-        bitmap = bitmap.scaleCenterCrop(canvasSize)
-
-        val state =
-            TransformState(Point(0, 0), canvasSize, 0F)
-
-        backgroundObject = BackgroundObject(
-            "background", // пока может быть только один фон
-            bitmap,
-            state,
-            background
-        )
+                backgroundObject = BitmapBackgroundObject(
+                    "background", // пока может быть только один фон
+                    bitmap,
+                    state,
+                    background
+                )
+            }
+        }
     }
 
     fun addSticker(sticker: Sticker) {

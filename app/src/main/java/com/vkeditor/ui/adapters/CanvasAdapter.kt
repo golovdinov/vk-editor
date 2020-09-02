@@ -7,13 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListUpdateCallback
 import com.vkcanvas.*
-import com.vkcanvas.entity.TransformState
-import com.vkcanvas.entity.VKCanvasObject
-import com.vkcanvas.entity.VKCanvasTextObject
-import com.vkcanvas.widgets.VKCanvasBitmapObjectView
-import com.vkcanvas.widgets.VKCanvasObjectView
-import com.vkcanvas.widgets.VKCanvasTextObjectView
-import com.vkeditor.entity.BackgroundObject
+import com.vkcanvas.entity.*
+import com.vkcanvas.widgets.*
+import com.vkeditor.entity.BitmapBackgroundObject
+import com.vkeditor.entity.ColorBackgroundObject
+import com.vkeditor.entity.GradientBackgroundObject
 import com.vkeditor.entity.StickerObject
 import com.vkeditor.ui.widgets.TrashView
 
@@ -60,10 +58,22 @@ open class CanvasAdapter : VKCanvasAdapter() {
 
     override fun getView(parent: ViewGroup, index: Int): VKCanvasObjectView {
         return when (objects[index].subtype) {
-            BackgroundObject.SUBTYPE_BACKGROUND -> {
+            VKCanvasColorObject.SUBTYPE_COLOR -> {
+                VKCanvasColorObjectView(
+                    parent.context,
+                    objects[index] as ColorBackgroundObject
+                )
+            }
+            VKCanvasGradientObject.SUBTYPE_GRADIENT -> {
+                VKCanvasGradientObjectView(
+                    parent.context,
+                    objects[index] as GradientBackgroundObject
+                )
+            }
+            BitmapBackgroundObject.SUBTYPE_BACKGROUND -> {
                 VKCanvasBitmapObjectView(
                     parent.context,
-                    objects[index] as BackgroundObject,
+                    objects[index] as BitmapBackgroundObject,
                     canvasSize
                 )
             }

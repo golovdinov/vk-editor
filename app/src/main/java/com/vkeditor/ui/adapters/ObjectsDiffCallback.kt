@@ -1,9 +1,13 @@
 package com.vkeditor.ui.adapters
 
 import androidx.recyclerview.widget.DiffUtil
+import com.vkcanvas.entity.VKCanvasColorObject
+import com.vkcanvas.entity.VKCanvasGradientObject
 import com.vkcanvas.entity.VKCanvasObject
 import com.vkcanvas.entity.VKCanvasTextObject
-import com.vkeditor.entity.BackgroundObject
+import com.vkeditor.entity.BitmapBackgroundObject
+import com.vkeditor.entity.ColorBackgroundObject
+import com.vkeditor.entity.GradientBackgroundObject
 import com.vkeditor.entity.StickerObject
 
 class ObjectsDiffCallback(
@@ -19,6 +23,11 @@ class ObjectsDiffCallback(
         val oldObject = oldList[oldItemPosition]
         val newObject = newList[newItemPosition]
 
+        // Фон только обновляем (без удаления/добавления)
+        if (oldObject.id == newObject.id && newObject.id == "background") {
+            return true
+        }
+
         return oldObject.id == newObject.id
                 && oldObject.type == newObject.type
     }
@@ -29,9 +38,22 @@ class ObjectsDiffCallback(
         }
 
         return when (oldList[oldItemPosition].subtype) {
-            BackgroundObject.SUBTYPE_BACKGROUND -> {
-                val oldObject = oldList[oldItemPosition] as BackgroundObject
-                val newObject = newList[newItemPosition] as BackgroundObject
+            VKCanvasColorObject.SUBTYPE_COLOR -> {
+                val oldObject = oldList[oldItemPosition] as ColorBackgroundObject
+                val newObject = newList[newItemPosition] as ColorBackgroundObject
+
+                oldObject.color == newObject.color
+            }
+            VKCanvasGradientObject.SUBTYPE_GRADIENT -> {
+                val oldObject = oldList[oldItemPosition] as GradientBackgroundObject
+                val newObject = newList[newItemPosition] as GradientBackgroundObject
+
+                oldObject.colorStart == newObject.colorStart
+                        && oldObject.colorEnd == newObject.colorEnd
+            }
+            BitmapBackgroundObject.SUBTYPE_BACKGROUND -> {
+                val oldObject = oldList[oldItemPosition] as BitmapBackgroundObject
+                val newObject = newList[newItemPosition] as BitmapBackgroundObject
 
                 oldObject.background == newObject.background
             }

@@ -6,15 +6,19 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.vkeditor.R
 import com.vkeditor.entity.Background
-import com.vkeditor.ui.adapters.holders.BackgroundAddNewHolder
-import com.vkeditor.ui.adapters.holders.BackgroundItemViewHolder
-import com.vkeditor.ui.adapters.holders.BackgroundViewHolder
+import com.vkeditor.entity.BitmapBackground
+import com.vkeditor.entity.ColorBackground
+import com.vkeditor.entity.GradientBackground
+import com.vkeditor.ui.adapters.holders.*
+import java.lang.IllegalStateException
 
 class BackgroundsListAdapter: RecyclerView.Adapter<BackgroundViewHolder>() {
 
     companion object {
-        const val VIEW_TYPE_ITEM = 1
-        const val VIEW_TYPE_BUTTON = 2
+        const val VIEW_TYPE_COLOR = 1
+        const val VIEW_TYPE_GRADIENT = 2
+        const val VIEW_TYPE_BITMAP = 3
+        const val VIEW_TYPE_BUTTON = 4
     }
 
     var onItemClickListener: ((Int) -> Unit)? = null
@@ -40,13 +44,18 @@ class BackgroundsListAdapter: RecyclerView.Adapter<BackgroundViewHolder>() {
         )
         items = newItems
         diffResult.dispatchUpdatesTo(this)
-        //notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {
         return when {
             position >= items.size -> VIEW_TYPE_BUTTON
-            else -> VIEW_TYPE_ITEM
+            else -> {
+                when (items[position].type) {
+                    Background.Type.Color -> VIEW_TYPE_COLOR
+                    Background.Type.Gradient -> VIEW_TYPE_GRADIENT
+                    Background.Type.Bitmap -> VIEW_TYPE_BITMAP
+                }
+            }
         }
     }
 
@@ -56,9 +65,20 @@ class BackgroundsListAdapter: RecyclerView.Adapter<BackgroundViewHolder>() {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_background_new, parent, false)
                 BackgroundAddNewHolder(view)
             }
+            VIEW_TYPE_COLOR -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_background_color, parent, false)
+                BackgroundColorViewHolder(view, onItemClickListener)
+            }
+            VIEW_TYPE_GRADIENT -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_background_gradient, parent, false)
+                BackgroundGradientViewHolder(view, onItemClickListener)
+            }
+            VIEW_TYPE_BITMAP -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_background_bitmap, parent, false)
+                BackgroundBitmapViewHolder(view, onItemClickListener)
+            }
             else -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_background, parent, false)
-                BackgroundItemViewHolder(view, onItemClickListener)
+                throw IllegalStateException("Undefined background view type $viewType")
             }
         }
     }
@@ -66,13 +86,34 @@ class BackgroundsListAdapter: RecyclerView.Adapter<BackgroundViewHolder>() {
     override fun getItemCount() = items.size + 1
 
     override fun onBindViewHolder(holder: BackgroundViewHolder, position: Int) {
-        if (position >= items.size) {
-            (holder as BackgroundAddNewHolder).let { holder ->
-                holder.bind(onAddNewClickListener)
+        val viewType = getItemViewType(position)
+        when (viewType) {
+            VIEW_TYPE_BUTTON -> {
+                (holder as BackgroundAddNewHolder).bind(onAddNewClickListener)
             }
-        } else {
-            (holder as BackgroundItemViewHolder).let { holder ->
-                holder.bind(items[position], position, selectedPosition == position)
+            VIEW_TYPE_COLOR -> {
+                (holder as BackgroundColorViewHolder).bind(
+                    items[position] as ColorBackground,
+                    position,
+                    selectedPosition == position
+                )
+            }
+            VIEW_TYPE_GRADIENT -> {
+                (holder as BackgroundGradientViewHolder).bind(
+                    items[position] as GradientBackground,
+                    position,
+                    selectedPosition == position
+                )
+            }
+            VIEW_TYPE_BITMAP -> {
+                (holder as BackgroundBitmapViewHolder).bind(
+                    items[position] as BitmapBackground,
+                    position,
+                    selectedPosition == position
+                )
+            }
+            else -> {
+                throw IllegalStateException("Undefined background view type $viewType")
             }
         }
     }

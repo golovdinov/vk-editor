@@ -138,8 +138,8 @@ class MainActivity: BaseActivity(), StickersDialogFragment.SelectStickerListener
     }
 
     private fun initTrashView() {
-        viewModel.backgroundObject.observe(this, Observer {
-            val style = when(it?.background?.id) {
+        viewModel.backgroundObject.observe(this, Observer { it ->
+            val style = when(it?.id) {
                 Background.ID_WHITE -> TrashView.Style.WithBorder
                 else -> TrashView.Style.WithShadow
             }

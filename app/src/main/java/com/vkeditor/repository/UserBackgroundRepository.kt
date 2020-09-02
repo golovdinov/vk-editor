@@ -7,11 +7,12 @@ import android.os.Environment
 import android.util.Size
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.vkcanvas.util.scaleCenterCrop
 import com.vkeditor.entity.Background
+import com.vkeditor.entity.BitmapBackground
 import com.vkeditor.utils.Event
 import com.vkeditor.utils.getBitmapByUri
 import com.vkeditor.utils.saveBitmapToStream
-import com.vkcanvas.util.scaleCenterCrop
 import java.io.File
 import java.io.FileOutputStream
 
@@ -31,7 +32,7 @@ class UserBackgroundRepository(private val context: Context) {
 
         if (file.exists()) {
             liveData.postValue(
-                Background(
+                BitmapBackground(
                     System.currentTimeMillis().toString(),
                     "file://${file.absolutePath}",
                     "file://${file.absolutePath}"
@@ -70,7 +71,7 @@ class UserBackgroundRepository(private val context: Context) {
                 )
 
                 userBackground.postValue(
-                    Background(
+                    BitmapBackground(
                         System.currentTimeMillis().toString(),
                         "file://${file.absolutePath}",
                         "file://${file.absolutePath}"
